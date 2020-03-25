@@ -7,14 +7,12 @@ import java.awt.image.BufferedImage;
  * Utilitas untuk melakukan cropping pada sebuah spritesheet
  */
 public class SpriteSheets {
-
-	
 	private BufferedImage sheet;
-
+	
 	public SpriteSheets(BufferedImage sheet) {
 		this.sheet = sheet;
 	}
-
+	//crop utility
 	public BufferedImage crop(int row, int col, int width) {
 		int y = width * row;
 		int x = width * col;

@@ -5,14 +5,29 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import com.cms.minespweeper.game.CellStates;
 
+
+/**
+ * @author seijaku
+ * Class untuk meng-inisialisasi asset
+ * Mengolah dan melakukan drawing gambar
+ */
 public class Assets {
+	
 	public static final int spriteWidth=16;
 	public static BufferedImage covered;
 	public static BufferedImage[] uncovered;
 	public static BufferedImage mine,flag;
 	public static BufferedImage bomb,wrongFlag;
 	
+	
+
+	/**
+	 * @author seijaku
+	 * Fungsi static untuk menginsialisasi gambar
+	 * 
+	 */
 	public static void init() {
+		//load image
 		BufferedImageLoader loader = new BufferedImageLoader();
 		SpriteSheets sheet = null;
 		try {
@@ -20,7 +35,7 @@ public class Assets {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		//crop image
 		uncovered= new BufferedImage[9];
 		for(int i=0; i<uncovered.length;i++) {
 			uncovered[i]= sheet.crop(0,i,spriteWidth);
@@ -32,15 +47,30 @@ public class Assets {
 		bomb = sheet.crop(1, 5, spriteWidth);
 	}
 	
+	
+	/**
+	 * @author seijaku
+	 * Class untuk meng-inisialisasi asset
+	 * Mengolah dan melakukan drawing gambar
+	 */
 	public static void draw(int row, int col, CellStates state, Graphics g) {
 		BufferedImage img = covered;
-
+		//decide the image based on CellStates
 		switch (state) {
 		case COVERED:
 			img = covered;
 			break;
 		case FLAGGED:
 			img = flag;
+			break;
+		case WRONG_FLAG:
+			img = wrongFlag;
+			break;
+		case MINE:
+			img = mine;
+			break;
+		case FIRED_MINE:
+			img = bomb;
 			break;
 		case UNC0:
 			img = uncovered[0];
@@ -69,17 +99,9 @@ public class Assets {
 		case UNC8:
 			img = uncovered[8];
 			break;
-		case WRONG_FLAG:
-			img = wrongFlag;
-			break;
-		case MINE:
-			img = mine;
-			break;
-		case FIRED_MINE:
-			img = bomb;
-			break;
-		}
 
+		}
+		//draw image
 		g.drawImage(img, spriteWidth * col, spriteWidth * row, null);
 	}
 

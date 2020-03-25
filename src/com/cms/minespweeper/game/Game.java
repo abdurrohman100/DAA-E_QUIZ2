@@ -16,7 +16,7 @@ public class Game {
 	private boolean ended;
 
 	public Game(String title, int ncells, int nmines) {
-		// TODO Auto-generated constructor stub
+
 		this.N=ncells;
 		width=Assets.spriteWidth * ncells;
 		height=width;
@@ -33,8 +33,12 @@ public class Game {
 		
 	}
 	
+	/**
+	 * start game
+	 */
 	public void start() {
 		Graphics g =bs.getDrawGraphics();
+		// draw semua cell dengan kondisi Covered
 		for(int i=0;i<N;i++) {
 			for(int j=0;j<N;j++) {
 				Assets.draw(i, j, CellStates.COVERED, g);
@@ -45,27 +49,30 @@ public class Game {
 	}
 
 	public void onClick(boolean isLeft, int x, int y) {
-		// TODO Auto-generated method stub
+
 		if(ended)return;
 		Graphics g = bs.getDrawGraphics();
+		// get row dan col dengan membagi koordinat dengan ukuran sprite
 		int row=y/Assets.spriteWidth;
 		int col=x/Assets.spriteWidth;
+		// Jika mouse kiri di-release maka uncover cellnya
 		if(isLeft) {
 			board.uncoverCell(row, col, g);
-		}else {
+		}
+		// Jika mouse kanan di-release maka kasih flag pada cellnya
+		else {
 			board.toogleFlag(row, col, g);
 		}
 		bs.show();
+		// Setiap kali click, cek status game
 		GameStates result= board.getGameStates();
-		// when game ends
+		// kalau game nya bukan ongoing berarti game selesai
 		if (result != GameStates.ONGOING) {
 			ended = true;
-			System.out.println("Game ended!");
-			String msg = (result == GameStates.LOST ? "!!!!! You Lose !!!!!" : "!!!!! You Won !!!!!");
+			System.out.println("Game Selesai");
+			String msg = (result == GameStates.LOST ? "Kamu Kalah!" : "Kamu Menang!");
 			frame.getFrame().setTitle(msg);
 		}
 		g.dispose();
 	}
-
-	
 }

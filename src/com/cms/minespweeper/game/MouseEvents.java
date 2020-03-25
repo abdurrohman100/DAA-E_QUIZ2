@@ -2,6 +2,11 @@ package com.cms.minespweeper.game;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * @author seijaku
+ * Mouse Listener untuk menerima input mouse
+ *
+ */
 public class MouseEvents implements MouseListener{
 	private Game game;
 	
@@ -32,7 +37,10 @@ public class MouseEvents implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	//ketika ada mouse yang direlease, cek mouse mana kiri atau kanan, kemudian jika game masih berjalan 
+	//dapatkan posisi x y dimana mouse tersebut direlease
+	// kemudain fungsi onClick pada class game akan dipanggil
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
